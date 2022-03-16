@@ -12,7 +12,7 @@ module "ec2_grafana" {
     iam_instance_profile    = module.instance_profile_ec2_grafana.instance_profile_name
     ami                     = data.aws_ami.ubuntu.id
     monitoring              = true
-    vpc_security_group_ids  = ["sg-0cb0f7f9f49b0876d"]
+    vpc_security_group_ids  = [ module.sg_grafana.id ]
     subnet_id               = "subnet-2eb65362"
 
     user_data               = data.template_file.user_data_grafana.rendered
