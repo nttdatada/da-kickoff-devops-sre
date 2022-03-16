@@ -45,3 +45,9 @@ data "aws_ami" "ubuntu" {
     owners = [ "099720109477" ]
 
 }
+
+data "template_file" "user_data_grafana" {
+
+    template = file("./scripts/userdata-grafana-${terraform.workspace}.sh")
+
+}
