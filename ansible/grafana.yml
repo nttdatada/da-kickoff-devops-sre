@@ -1,0 +1,7 @@
+--- 
+- name: Grafana 
+  hosts: localhost
+  become: yes
+  vars: 
+  roles:
+   - grafana
