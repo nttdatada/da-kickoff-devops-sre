@@ -1,6 +1,6 @@
 ---
 grafana_version: latest
-grafana_yum_repo_template: etc/yum.repos.d/grafana.repo.j2
+grafana_yum_repo_template:
 grafana_manage_repo: true
 
 # Should we use the provisioning capability when possible (provisioning require grafana >= 5.0)
@@ -11,8 +11,8 @@ grafana_provisioning_synced: false
 
 grafana_instance: "{{ ansible_fqdn | default(ansible_host) | default(inventory_hostname) }}"
 
-grafana_logs_dir: "/var/log/grafana"
-grafana_data_dir: "/var/lib/grafana"
+grafana_logs_dir: "/data/log/grafana"
+grafana_data_dir: "/data/lib/grafana"
 
 grafana_address: "0.0.0.0"
 grafana_port: 3000
@@ -43,7 +43,7 @@ grafana_server:
 # Security
 grafana_security:
   admin_user: admin
-  admin_password: ""
+  admin_password: "admin12345"
 #  secret_key: ""
 #  login_remember_days: 7
 #  cookie_username: grafana_user

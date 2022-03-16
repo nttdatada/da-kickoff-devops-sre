@@ -73,6 +73,14 @@ module "sg_grafana" {
             cidr_blocks = "0.0.0.0/0"
             description = "Allow SSH"
         },
+        {
+            type = "ingress"
+            from_port = 3000
+            to_port = 3000
+            protocol = "TCP"
+            cidr_blocks = "0.0.0.0/0"
+            description = "Allow Grafana Web"
+        },
 
     ]
 } 
