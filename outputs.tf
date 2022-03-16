@@ -24,6 +24,6 @@ output "instance_profile_name_ec2_grafana" {
 output "security_group_id_ec2_grafana" {
 
   description = ""
-  value = module.sg_grafana.id
+  value = module.sg_grafana.security_group_id
 
 }
