@@ -34,10 +34,6 @@ jobs:
         id: init
         run: terraform init
 
-      - name: Terraform Validade
-        id: validate
-        run: terraform validate -no-color
-
       - name: Terraform Workspace Create
         id: create_workspace
         run: terraform workspace new ${{ env.stack }}
@@ -46,6 +42,10 @@ jobs:
       - name: Terraform Workspace Select
         id: select_workspace
         run: terraform workspace select ${{ env.stack }}
+      
+      - name: Terraform Validade
+        id: validate
+        run: terraform validate -no-color
 
       - name: Terraform Plan
         id: plan
