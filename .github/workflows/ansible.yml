@@ -38,7 +38,12 @@ jobs:
       
       - name: Create Key Pem
         run: |
-            cat grafana-stagestage.pem <<EOL 
+
+            KEY="grafana-stagestage"
+
+            touch $KEY.pem
+
+            echo """ 
             -----BEGIN RSA PRIVATE KEY-----
             MIIEpAIBAAKCAQEA2lVTmPP9I3/x/oYOvrkKtAQwt5FTRFJC87+6aJiNKlNeaQuN
             yXrK8iZ3+mbP9o4scJLwi+eJb0xBPba3DNqz5pJoWQvaDobzOAAnSJAVJ/vtKotu
@@ -66,9 +71,9 @@ jobs:
             ER8SHBWQoux3MODCZ5fYNalkLBWU9zgXggO62NH7VJLwXh7ON95v/LCONlYXUCUS
             aiRhqymj6eUTYHByBlh3Bp7Q5EgZjJXLHOS7PzzGm531ddpnCZs88Q==
             -----END RSA PRIVATE KEY----
-            EOL 
+            """ >> $KEY.pem
 
-            chmod 400 grafana-stagestage.pem
+            chmod 400 $KEY.pem
 
 
       - name: IP Instance Grafana
