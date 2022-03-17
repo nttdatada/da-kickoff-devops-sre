@@ -1,0 +1,51 @@
+name: Ansible
+
+on: 
+  pull_request:
+    branches:
+      - master
+
+jobs:
+
+  ansible:
+    name: Ansible Stack Stage
+    runs-on: ubuntu-latest
+    environment: stage
+    
+    env:
+      stack: stage
+
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-region: ${{ secrets.AWS_REGION}}
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      
+      - name: Install Packages
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install awscli aptitude git ansible python-pip jq -y
+
+      - name: IP Instance Grafana
+        run: | 
+            IP=$(aws ec2 describe-instances --region us-east-1 --filters "Name=tag:Name,Values=grafana-stage" |jq -r .Reservations[].Instances[].PublicIpAddress)
+            echo "$IP"
+            echo -e "\n [Grafana] \n\t\n $IP ansible_connection=ssh ansible_user=ubuntu  ansible_ssh_private_key_file=./grafana-stagestage.pem \n\t" > /etc/ansible/hosts
+
+      - name: Ansible Test Connection  
+        run: ansible Grafana -m "ping"
+        id: test
+
+      - name: Ansible Status Connection
+        if: steps.test.outcome == 'failure'
+        run: exit 1
+
+      - name: Ansible Execute Playbook
+        run: ansible-playbook -i Grafana ./ansible/grafana.yml      
