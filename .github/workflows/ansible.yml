@@ -40,7 +40,7 @@ jobs:
         run: | 
             IP=$(aws ec2 describe-instances --region us-east-1 --filters "Name=tag:Name,Values=grafana-stage" |jq -r .Reservations[].Instances[].PublicIpAddress)
             echo "$IP"
-            echo -e "\n [Grafana] \n\t\n $IP ansible_connection=ssh ansible_user=ubuntu  ansible_ssh_private_key_file=./grafana-stagestage.pem \n\t" > hosts
+            echo -e "\n [Grafana] \n\t\n $IP ansible_connection=ssh ansible_user=ubuntu  ansible_ssh_private_key_file=../grafana-stagestage.pem \n\t" > hosts
             cat hosts
 
       - name: Ansible Test Connection  
