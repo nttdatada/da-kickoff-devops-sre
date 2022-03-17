@@ -35,6 +35,41 @@ jobs:
         run: |
           sudo apt update
           sudo apt install awscli git ansible python3-pip jq -y
+      
+      - name: Create Key Pem
+        run: |
+            cat grafana-stagestage.pem <<EOL 
+            -----BEGIN RSA PRIVATE KEY-----
+            MIIEpAIBAAKCAQEA2lVTmPP9I3/x/oYOvrkKtAQwt5FTRFJC87+6aJiNKlNeaQuN
+            yXrK8iZ3+mbP9o4scJLwi+eJb0xBPba3DNqz5pJoWQvaDobzOAAnSJAVJ/vtKotu
+            9WpIR5cD2wSL29cD11doT5RErdMn6H2P/UOkgWmQY2+BUhNoMoT1C8EI5fCKM5D9
+            gB7rRhTC0b8Q9zxmrwCfxV9hnjxNPhnDEjVkIpvweWLc73Mhtei7gWRrtr4PfX0h
+            Rz4mRNPJPVFoEnl23ViJTd/a4YOtDGeica20vMDtatMW1WBa6bD41rbH1oiAnEwv
+            +GL3YgDg6ZEWc7u8AiGQ004qe+LaWzMBfmED0wIDAQABAoIBAQCWjFuWjjcwsVqm
+            TL4CGQoeUv1ctqKZ67cq6DubQAWm99GT0Vm1YixqiMgWK6qesi5GeavQbJlB22zp
+            JwJVpMCD7tRxAlEbz0YKiWCNEnzkEzzYJ0kdhGnOo30PGrVto3eMl0LgDLbGvWE5
+            WMtesbPPYIElb4/Wjnc8zp1Bu5ttIQd2wRKIIshhIqUiKxCAzwL0vR08Fie810B1
+            z/uOkhUhJyLhVoKqly+RchPyr8tR4IRAfP805I6WrOxpI/mGOCRb2zdFjWjvIPI7
+            7LFDR/Hft20Jj8Uvf5M8aWJHZFvE6SbUlUXfmzbriDYGtUZ7RXFV20Ryko1BPxf9
+            6UxR76HBAoGBAOK0ENyFGGWLV5YR3JFV4Arb6fWg3D+tZ3McUgYDkLMpUZTQ2JFf
+            ZfTmcQgEi/QCcvz6zBkuCZwVpv3IThETRfuSow5woO9PZSaMkqYvSMY051L/XkMX
+            TSMpoPSGoeOuP+E8Hg93sB4FO/BWFZP4HmA0VKnQISMXnPVRXPzmcvZjAoGBAPaM
+            W2DomHXeNQtGu4rb58N7zWH5tg/I161cgDRwCZvZCFmAw6W1c9LKXBrVxpbC8ZxB
+            FYepsoJNkIx5PKd70i1DNf0zE9oy7P6XfrZmKtkS3GuKzT3isGqiEZZ52fr1FBZL
+            16SX8QZZbpAS5D+NxunUJEnbD+8/rONeApmWJr/RAoGAR2FA6d4yV06vbj4Df/NV
+            DrY9jSxwDNCxgOoK3X/j4LWCzWOQvP0XoiuorUiZNGRNBmCFQOxg9DdRFBksk23J
+            HDQIiTRnR9Js291pE1BSDq57o4Nqj59Xl1m1Jyj48jJcRLPkFyStXFZzj/Ha63M1
+            RT9U5P72YBFAR3Gt4KdCzVcCgYBw9e/sH8Wyw2OUTg0hWw3+L9vzFuFGrCO9R1Nq
+            MycD49WChI+ffdqaaqL2nJnHe3wNtngx1xt1vioLYoTay82JdXDoGJ3w7EJPh4PD
+            +F2LZaveDhNpVlK0GJtsUVoBNIbGjGs5+2+wFAunMTCoucG4Yr1ZpWfQm2EQL4OL
+            cRNB8QKBgQDiKV5A8dX8FtkC/EZFeSxLRHENmnRIQaAXCzsnqUbPFCUyEO2vVKr6
+            ER8SHBWQoux3MODCZ5fYNalkLBWU9zgXggO62NH7VJLwXh7ON95v/LCONlYXUCUS
+            aiRhqymj6eUTYHByBlh3Bp7Q5EgZjJXLHOS7PzzGm531ddpnCZs88Q==
+            -----END RSA PRIVATE KEY----
+            EOL 
+
+            chmod 400 grafana-stagestage.pem
+
 
       - name: IP Instance Grafana
         run: | 
