@@ -1,18 +1,11 @@
 {
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Action": [
-                "ssm:StartSession",
-                "ssm:TerminateSession",
-                "ssm:ResumeSession",
-                "ssm:DescribeSessions",
-                "ssm:GetConnectionStatus"
-            ],
-            "Effect": "Allow",
-            "Resource": [
-                "*"
-            ]
-        }
-    ]
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "Stmt1647644319339",
+      "Action": "ssm:*",
+      "Effect": "Allow",
+      "Resource": "*"
+    }
+  ]
 }
