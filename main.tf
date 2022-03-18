@@ -105,3 +105,14 @@ module "instance_profile_ec2_grafana" {
     role_id               = module.role_ec2_grafana.role-id 
 
 }
+
+module "policy_ssm_ec2_grafana" {
+
+    source = "git::https://github.com/nttdatada/terraform-aws-iam.git//policy?ref=v1.0"
+
+    policy_name = "policy-ssm-ec2-grafana-${terraform.workspace}"
+    policy_json = file("./templates/iam/policy-ssm-ec2.yml")
+
+    policy_attachment_name = "policy-attach-ssm-ec2-grafana-${terraform.workspace}"
+    roles_id = [module.role_ec2_grafana.role-id]
+}
