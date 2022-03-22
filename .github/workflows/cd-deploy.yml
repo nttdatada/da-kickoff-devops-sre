@@ -106,6 +106,7 @@ jobs:
       - name: Install Packages
         run: |
           sudo apt update
+          sudo apt install ssh
 
       - name: Ansible Pull Instance EC2 
         env:
