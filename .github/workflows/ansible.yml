@@ -18,6 +18,8 @@ jobs:
     
     env:
       stack: stage
+      SSH_KEY: ${{ secrets.SSH_KEY }}
+      IP_ADDRESS: ${{ secrets.IP_ADDRESS_GRAFANA }}
 
     steps:
 
@@ -38,13 +40,11 @@ jobs:
             
 
       - name: SSH Test
-        env:
-          SSH_KEY: ${{ secrets.SSH_KEY }}
         run: |
             touch grafanassh.pem
-            echo "$SSH_KEY" >> grafanassh.pem
+            echo "$SSH_KEY" > grafanassh.pem
             cat grafanassh.pem
             chmod 400 grafanassh.pem
-            echo "ssh -i grafanassh.pem ubuntu@${{ secrets.IP_ADDRESS_GRAFANA }} "id"""
+            echo "ssh -i grafanassh.pem ubuntu@$IP_ADDRESS "id"""
       
       
