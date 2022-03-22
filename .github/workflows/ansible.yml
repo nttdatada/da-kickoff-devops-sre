@@ -39,8 +39,9 @@ jobs:
 
       - name: SSH Test
         run: |
-            echo -e "${{ secrets.SSH_KEY }}" 
-            #chmod 400 grafana_ssh.pem
-            #ssh -i grafana_ssh.pem ubuntu@${{ secrets.IP_ADDRESS_GRAFANA }} "id"
+            touch grafanassh.pem
+            echo -e "${{ secrets.SSH_KEY }}" >> grafanassh.pem
+            chmod 400 grafanassh.pem
+            echi "ssh -i grafanassh.pem ubuntu@${{ secrets.IP_ADDRESS_GRAFANA }} "id"""
       
       
