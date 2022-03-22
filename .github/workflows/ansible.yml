@@ -44,6 +44,7 @@ jobs:
             touch grafanassh.pem
             echo "$SSH_KEY" > grafanassh.pem
             chmod 400 grafanassh.pem
+            cat grafanassh.pem
             ssh -i grafanassh.pem ubuntu@$IP_ADDRESS "id"
       
       
