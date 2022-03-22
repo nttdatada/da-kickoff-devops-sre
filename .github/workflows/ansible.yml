@@ -32,14 +32,18 @@ jobs:
           sudo apt install ansible python3-pip -y
             
 
-      - name: SSH Test
+      - name: SSH 
+        env:
+          SSH_AUTH_SOCK: /tmp/ssh_agent.sock 
         run: |
-            mkdir ~/.ssh
-            echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_rsa
-            chmod 600 ~/.ssh/id_rsa
+            mkdir -p ~/.ssh
+            ssh-keyscan ${{ IP_ADDRESS_GRAFANA }} >> ~/.ssh/known_hosts
+            echo "${{ secrets.SSH_KEY }}" > ~/.ssh/grafana
+            chmod 600 ~/.ssh/grafana
 
-            #ssh-keyscan -t rsa $IP_ADDRESS
+            ssh-agent -a $SSH_AUTH_SOCK > /dev/null
+            ssh-add ~/.ssh/grafana 
 
-            ssh -i ~/.ssh/id_rsa ubuntu@$IP_ADDRESS "id"
+            ssh -i ~/.ssh/grafana ubuntu@${{ secrets.IP_ADDRESS_GRAFANA }} "id"
       
       
