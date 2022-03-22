@@ -27,7 +27,7 @@ jobs:
       - name: AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          aws-region: ${{ secrets.AWS_REGION}}
+          aws-region: ${{ secrets.AWS_REGION }}
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       
@@ -38,10 +38,13 @@ jobs:
             
 
       - name: SSH Test
+        env:
+          SSH_KEY: ${{ secrets.SSH_KEY }}
         run: |
             touch grafanassh.pem
-            echo -e "${{ secrets.SSH_KEY }}" >> grafanassh.pem
+            echo "$SSH_KEY" >> grafanassh.pem
+            cat grafanassh.pem
             chmod 400 grafanassh.pem
-            echi "ssh -i grafanassh.pem ubuntu@${{ secrets.IP_ADDRESS_GRAFANA }} "id"""
+            echo "ssh -i grafanassh.pem ubuntu@${{ secrets.IP_ADDRESS_GRAFANA }} "id"""
       
       
