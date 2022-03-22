@@ -97,20 +97,18 @@ jobs:
     environment: stage
     env:
       stack: stage
+      SSH_KEY: ${{ secrets.SSH_KEY }}
+      IP_ADDRESS_GRAFANA: ${{ secrets.IP_ADDRESS_GRAFANA }}
+      SSH_COMMAND: ${{ secrets.SSH_COMMAND }}
     
     steps:
 
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Install Packages
-        run: |
-          sudo apt update
-          sudo apt install ssh
-
-      - name: Ansible Pull Instance EC2 
+      - name: SSH Ansible Pull Instance EC2 
         env:
-          SSH_AUTH_SOCK: /tmp/ssh_agent.sock 
+          SSH_AUTH_SOCK: /tmp/ssh_agent.sock
         run: |
             mkdir -p ~/.ssh
             ssh-keyscan ${{ secrets.IP_ADDRESS_GRAFANA }} >> ~/.ssh/known_hosts
