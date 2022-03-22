@@ -37,7 +37,7 @@ jobs:
           SSH_AUTH_SOCK: /tmp/ssh_agent.sock 
         run: |
             mkdir -p ~/.ssh
-            ssh-keyscan ${{ IP_ADDRESS_GRAFANA }} >> ~/.ssh/known_hosts
+            ssh-keyscan ${{ secrets.IP_ADDRESS_GRAFANA }} >> ~/.ssh/known_hosts
             echo "${{ secrets.SSH_KEY }}" > ~/.ssh/grafana
             chmod 600 ~/.ssh/grafana
 
