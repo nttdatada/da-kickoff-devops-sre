@@ -41,10 +41,12 @@ jobs:
 
       - name: SSH Test
         run: |
-            touch grafanassh.pem
-            echo "$SSH_KEY" > grafanassh.pem
-            chmod 400 grafanassh.pem
-            cat grafanassh.pem
-            ssh -i grafanassh.pem ubuntu@$IP_ADDRESS "id"
+            mkdir ~/.ssh
+            echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_rsa
+            chmod 600 ~/.ssh/id_rsa
+
+            ssh-keyscan -t rsa $IP_ADDRESS
+
+            ssh -i ~/.ssh/id_rsa ubuntu@$IP_ADDRESS "id"
       
       
