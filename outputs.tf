@@ -4,8 +4,26 @@
 
 #### PROJECT KICKOFF DEVOPS & SRE ####
 
-### AWS IAM ###
 
+
+### AWS EC2 ###
+output "ec2_id" {
+
+  description = ""
+  value = module.ec2_grafana.id
+  
+}
+
+### AWS EIP ###
+output "eip_allocation" {
+
+  description = ""
+  value = aws_eip.eip_grafana.allocation_id
+  
+}
+
+
+### AWS IAM ###
 output "role_id_grafana" {
   
   description = ""
@@ -20,7 +38,6 @@ output "instance_profile_name_ec2_grafana" {
 
 
 ### AWS SECURITY GROUP ###
-
 output "security_group_id_ec2_grafana" {
 
   description = ""

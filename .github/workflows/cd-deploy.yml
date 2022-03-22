@@ -1,4 +1,4 @@
-name: Terraform
+name: CD - Deploy
 
 on:
   pull_request: 
@@ -11,7 +11,6 @@ jobs:
     name: Terrafom Stack Stage
     runs-on: ubuntu-latest
     environment: stage
-    
     env:
       stack: stage
 
@@ -88,6 +87,38 @@ jobs:
       
       - name: Terraform Apply
         run: terraform apply -var-file="environments/$(cat .terraform/environment)/variables.tfvars" -auto-approve
+  
+
+  ansible:
+    needs: terraform
+
+    name: Ansible Stack Stage
+    runs-on: ubuntu-latest
+    environment: stage
+    env:
+      stack: stage
+      SSH_KEY: ${{ secrets.SSH_KEY }}
+      IP_ADDRESS_GRAFANA: ${{ secrets.IP_ADDRESS_GRAFANA }}
+      SSH_COMMAND: ${{ secrets.SSH_COMMAND }}
+    
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: SSH Ansible Pull Instance EC2 
+        env:
+          SSH_AUTH_SOCK: /tmp/ssh_agent.sock
+        run: |
+            mkdir -p ~/.ssh
+            ssh-keyscan ${{ secrets.IP_ADDRESS_GRAFANA }} >> ~/.ssh/known_hosts
+            echo "${{ secrets.SSH_KEY }}" > ~/.ssh/grafana
+            chmod 600 ~/.ssh/grafana
+            ssh-agent -a $SSH_AUTH_SOCK > /dev/null
+            ssh-add ~/.ssh/grafana 
+            ssh -i ~/.ssh/grafana ubuntu@${{ secrets.IP_ADDRESS_GRAFANA }} "${{ secrets.SSH_COMMAND }}"
+      
+      
 
   
 
