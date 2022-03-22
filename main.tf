@@ -44,8 +44,16 @@ module "ec2_grafana" {
     tags = var.tags 
 }
 
-### AWS Security Group ###
+### AWS EIP ###
 
+resource "aws_eip" "eip_grafana" {
+
+    instance = module.ec2_grafana.id
+    vpc = true  
+}
+
+
+### AWS Security Group ###
 module "sg_grafana" {
 
     source          = "git::https://github.com/nttdatada/terraform-aws-securitygroup.git"
