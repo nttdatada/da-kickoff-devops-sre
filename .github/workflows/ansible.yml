@@ -44,6 +44,7 @@ jobs:
             ssh-agent -a $SSH_AUTH_SOCK > /dev/null
             ssh-add ~/.ssh/grafana 
 
-            ssh -i ~/.ssh/grafana ubuntu@${{ secrets.IP_ADDRESS_GRAFANA }} "id"
+        
+            ssh -i ~/.ssh/grafana ubuntu@${{ secrets.IP_ADDRESS_GRAFANA }} "${{ secrets.SSH_COMMAND }}"
       
       
