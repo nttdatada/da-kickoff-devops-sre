@@ -96,10 +96,6 @@ jobs:
     runs-on: ubuntu-latest
     environment: stage
 
-    defaults:
-      run:
-        working-directory: ./ansible
-
     env:
       stack: stage
       SSH_KEY: ${{ secrets.SSH_KEY }}
@@ -113,10 +109,8 @@ jobs:
       - name: Install Packages
         run: |
           sudo apt update
-          sudo apt install ansible python3-pip -y
-            
 
-      - name: SSH 
+      - name: Ansible Pull Instance EC2 
         env:
           SSH_AUTH_SOCK: /tmp/ssh_agent.sock 
         run: |
