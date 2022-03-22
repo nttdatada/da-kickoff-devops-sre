@@ -26,17 +26,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-region: ${{ secrets.AWS_REGION }}
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      
       - name: Install Packages
         run: |
           sudo apt update
-          sudo apt install awscli git ansible python3-pip jq -y
+          sudo apt install ansible python3-pip -y
             
 
       - name: SSH Test
@@ -45,7 +38,7 @@ jobs:
             echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_rsa
             chmod 600 ~/.ssh/id_rsa
 
-            ssh-keyscan -t rsa $IP_ADDRESS
+            #ssh-keyscan -t rsa $IP_ADDRESS
 
             ssh -i ~/.ssh/id_rsa ubuntu@$IP_ADDRESS "id"
       
