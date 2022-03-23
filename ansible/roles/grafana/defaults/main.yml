@@ -194,7 +194,8 @@ grafana_image_storage: {}
 #######
 # Plugins from https://grafana.com/plugins
 grafana_plugins: []
-#  - raintank-worldping-app
+   - grafana-clock-panel
+   - raintank-worldping-app
 
 # Dashboards from https://grafana.com/dashboards
 grafana_dashboards: []

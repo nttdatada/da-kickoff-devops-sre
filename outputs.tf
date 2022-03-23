@@ -11,16 +11,21 @@ output "ec2_id" {
 
   description = ""
   value = module.ec2_grafana.id
-  
 }
 
 ### AWS EIP ###
 output "eip_allocation" {
 
   description = ""
-  value = aws_eip.eip_grafana.allocation_id
-  
+  value = aws_eip.eip_grafana.allocation_id  
 }
+
+output "eip_public_ip" {
+
+  description = ""
+  value = aws_eip.eip_grafana.public_ip
+}
+
 
 
 ### AWS IAM ###
