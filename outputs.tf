@@ -4,8 +4,6 @@
 
 #### PROJECT KICKOFF DEVOPS & SRE ####
 
-
-
 ### AWS EC2 ###
 output "ec2_id" {
 
