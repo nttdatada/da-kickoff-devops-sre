@@ -3,7 +3,11 @@
   "Statement": [
     {
       "Sid": "Stmt1647644319339",
-      "Action": "ssm:*",
+      "Action": [
+          "ssm:*",
+          "ssmessages:*",
+          "ec2messages:*"
+      ],
       "Effect": "Allow",
       "Resource": "*"
     }
